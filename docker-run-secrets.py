@@ -1,5 +1,16 @@
 #!/usr/bin/env python
+# poetry export
+# docker build
+# docker stop
+# docker run (bash, background mode)
+# docker cp secrets.json
+
+import argparse
 import subprocess
+
+parser = argparse.ArgumentParser()
+parser.add_argument('cmd', type=str, nargs=argparse.REMAINDER, default='')
+args = parser.parse_args()
 
 DOCKER_OPTIONS = [
     ('--rm', ''),
@@ -31,5 +42,10 @@ subprocess.run('docker run {options} {tag} /bin/bash'.format(
 # secrets.json을 name=instagram인 container에 전송
 subprocess.run('docker cp secrets.json instagram:/srv/instagram', shell=True)
 
-# 실행중인 name=instagram인 container에서 bash를 실행(foreground 모드)
-subprocess.run('docker exec -it instagram /bin/bash', shell=True)
+# collectstatic을 subprocess.run()을 사용해서 실행
+subprocess.run('docker exec -it instagram python manage.py collectstatic --noinput', shell=True)
+
+# 실행중인 name=instagram인 container에서 argparse로 입력받은 cmd또는 bash를 실행(foreground 모드)
+subprocess.run('docker exec -it instagram {cmd}'.format(
+    cmd=' '.join(args.cmd) if args.cmd else '/bin/bash'
+), shell=True)
