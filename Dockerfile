@@ -14,11 +14,7 @@ WORKDIR     /srv/instagram/app
 # Nginx설정파일을 복사
 RUN         cp /srv/instagram/.config/instagram.nginx /etc/nginx/sites-enabled/
 
-# Gunicorn실행 (/run/instagram.sock파일을 사용해서 config.wsgi모듈과 통신)
-#  gunicorn -b unix:/run/instagram.sock config.wsgi
+# 로그폴더 생성
+RUN         mkdir /var/log/gunicorn
 
-# Nginx실행 (Foreground모드로)
-#  nginx -g "daemon off;"
-
-# 실행중인 컨테이너에서 bash를 하나 더 실행
-#  docker exec -it <컨테이너명> /bin/bash
+CMD         /bin/bash
