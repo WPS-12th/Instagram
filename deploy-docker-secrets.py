@@ -18,7 +18,7 @@ DOCKER_OPTIONS = [
     ('--name', 'instagram'),
 ]
 USER = 'ubuntu'
-HOST = '54.180.145.251'
+HOST = '13.125.236.55'
 TARGET = f'{USER}@{HOST}'
 HOME = str(Path.home())
 IDENTITY_FILE = os.path.join(HOME, '.ssh', 'wps12th.pem')
