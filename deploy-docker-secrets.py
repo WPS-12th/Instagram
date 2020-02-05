@@ -8,14 +8,23 @@ import os
 import subprocess
 from pathlib import Path
 
+
 DOCKER_IMAGE_TAG = 'azelf/wps-instagram'
 DOCKER_OPTIONS = [
     ('--rm', ''),
     ('-it', ''),
+    ('-p', '80:80'),
+    ('-p', '443:443'),
+
+    # Container name
+    ('--name', 'instagram'),
+
     # background로 실행하는 옵션 추가
     ('-d', ''),
-    ('-p', '80:80'),
-    ('--name', 'instagram'),
+
+    # Let's encrypt
+    ('-v', '/etc/letsencrypt:/etc/letsencrypt'),
+    ('-v', '/var/lib/letsencrypt:/var/lib/letsencrypt'),
 ]
 USER = 'ubuntu'
 HOST = '13.125.236.55'
