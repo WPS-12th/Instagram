@@ -43,7 +43,7 @@ subprocess.run('docker run {options} {tag} /bin/bash'.format(
 subprocess.run('docker cp secrets.json instagram:/srv/instagram', shell=True)
 
 # collectstatic을 subprocess.run()을 사용해서 실행
-subprocess.run('docker exec -it instagram python manage.py collectstatic --noinput', shell=True)
+subprocess.run('docker exec instagram python manage.py collectstatic --noinput', shell=True)
 
 # 실행중인 name=instagram인 container에서 argparse로 입력받은 cmd또는 bash를 실행(foreground 모드)
 subprocess.run('docker exec -it instagram {cmd}'.format(

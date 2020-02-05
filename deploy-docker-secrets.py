@@ -14,7 +14,7 @@ DOCKER_OPTIONS = [
     ('-it', ''),
     # background로 실행하는 옵션 추가
     ('-d', ''),
-    ('-p', '80:8000'),
+    ('-p', '80:80'),
     ('--name', 'instagram'),
 ]
 USER = 'ubuntu'
@@ -38,6 +38,7 @@ def ssh_run(cmd, ignore_error=False):
 
 # 1. 호스트에서 도커 이미지 build, push
 def local_build_push():
+    run(f'poetry export -f requirements.txt > requirements.txt')
     run(f'docker build -t {DOCKER_IMAGE_TAG} .')
     run(f'docker push {DOCKER_IMAGE_TAG}')
 
@@ -67,10 +68,12 @@ def copy_secrets():
     ssh_run(f'sudo docker cp /tmp/secrets.json instagram:/srv/instagram')
 
 
-# 4. Container에서 runserver실행
-def server_runserver():
+# 4. Container에서 collectstatic, supervisor실행
+def server_cmd():
+    ssh_run(f'sudo docker exec instagram /usr/sbin/nginx -s stop', ignore_error=True)
+    ssh_run(f'sudo docker exec instagram python manage.py collectstatic --noinput')
     ssh_run(f'sudo docker exec -it -d instagram '
-            f'python /srv/instagram/app/manage.py runserver 0:8000')
+            f'supervisord -c /srv/instagram/.config/supervisord.conf -n')
 
 
 if __name__ == '__main__':
@@ -79,7 +82,7 @@ if __name__ == '__main__':
         server_init()
         server_pull_run()
         copy_secrets()
-        server_runserver()
+        server_cmd()
     except subprocess.CalledProcessError as e:
         print('deploy-docker-secrets Error!')
         print(' cmd:', e.cmd)
