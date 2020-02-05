@@ -4,6 +4,7 @@
 .idea
 # Django User-uploaded static files root
 /.media
+/.static
 app/*.ipynb
 
 ### Git ###

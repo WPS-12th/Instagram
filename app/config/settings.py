@@ -27,6 +27,8 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+# 각 application들의 static/폴더, STATICFILES_DIRS의 폴더들이 가진 정적파일들을 모을 폴더
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
 STATIC_URL = '/static/'
 
 # instagram/.media
@@ -37,7 +39,6 @@ MEDIA_URL = '/media/'
 # secrets.json불러오기
 SECRETS = json.load(open(os.path.join(ROOT_DIR, 'secrets.json')))
 
-# django-secrets-manager의 SECRETS를 사용해서 비밀 값 할당
 AWS_ACCESS_KEY_ID = SECRETS['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = SECRETS['AWS_SECRET_ACCESS_KEY']
 
