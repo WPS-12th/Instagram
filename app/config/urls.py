@@ -23,6 +23,7 @@ from posts.views import post_list
 
 urlpatterns_apis = [
     path('members/', include('members.urls.apis')),
+    path('posts/', include('posts.urls.apis')),
 ]
 urlpatterns = [
     path('api/', include(urlpatterns_apis)),
