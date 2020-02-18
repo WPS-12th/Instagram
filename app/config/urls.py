@@ -21,7 +21,12 @@ from django.urls import path, include
 from members.views import signup_view
 from posts.views import post_list
 
+urlpatterns_apis = [
+    path('members/', include('members.urls_apis')),
+]
 urlpatterns = [
+    path('api/', include(urlpatterns_apis)),
+
     path('admin/', admin.site.urls),
     path('', signup_view, name='signup'),
     path('members/', include('members.urls')),
