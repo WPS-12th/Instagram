@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Post, PostLike, PostImage
 from .forms import PostCreateForm, CommentCreateForm
@@ -117,3 +118,17 @@ def comment_create(request, post_pk):
         if form.is_valid():
             form.save(post=post, author=request.user)
         return redirect('posts:post-list')
+
+
+def comment_list(request, post_pk):
+    # URL:      /posts/1/comments/
+    # Template: /posts/comment-list.html
+
+    # post_pk가 pk인 Post에 연결된 모든 PostComment목록을 보여주기
+    #  Template에서는 PostComment의 pk, content, author항목을 보여준다
+    post = Post.objects.get(pk=post_pk)
+    comments = post.postcomment_set.all()
+    context = {
+        'comments': comments,
+    }
+    return render(request, 'posts/comment-list.html', context)

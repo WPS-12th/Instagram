@@ -18,4 +18,6 @@ urlpatterns = [
     # /posts/3/comments/create/
     # views.post_create(request, post_pk=3)
     path('<int:post_pk>/comments/create/', views.comment_create, name='comment-create'),
+
+    path('<int:post_pk>/comments/', views.comment_list),
 ]

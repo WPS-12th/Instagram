@@ -60,6 +60,15 @@ ALLOWED_HOSTS = [
 ]
 AUTH_USER_MODEL = 'members.User'
 
+
+# DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -137,7 +146,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'ko-kr'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Seoul'
 
