@@ -13,7 +13,7 @@ WORKDIR     /srv/instagram/app
 
 # Nginx설정파일을 복사, 기본 서버 설정 삭제
 RUN         rm /etc/nginx/sites-enabled/default
-RUN         cp /srv/instagram/.config/instagram.nginx /etc/nginx/sites-enabled/
+RUN         cp /srv/instagram/.config/local_dev/instagram.nginx /etc/nginx/sites-enabled/
 
 # 로그폴더 생성
 RUN         mkdir /var/log/gunicorn
