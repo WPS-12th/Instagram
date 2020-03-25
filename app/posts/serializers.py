@@ -4,8 +4,18 @@ from members.serializers import UserSerializer
 from .models import Post, PostImage, PostComment
 
 
+class PostImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostImage
+        fields = (
+            'pk',
+            'image',
+        )
+
+
 class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer()
+    postimage_set = PostImageSerializer(many=True)
 
     class Meta:
         model = Post

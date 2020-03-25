@@ -13,4 +13,4 @@ INSTALLED_APPS += [
 ]
 
 # Storage
-AWS_STORAGE_BUCKET_NAME = 'wps-instagram-lhy-dev'
+AWS_STORAGE_BUCKET_NAME = 'wps-instagram-lhy3'
